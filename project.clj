@@ -4,9 +4,9 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.gotti.wurmunlimited/client-modlauncher "0.4"]
                  [org.clojure/tools.nrepl "0.2.12"]
-                 ]
+                 [org.gotti.wurmunlimited/client-modlauncher "0.4"]]
   :repositories [["gotti-no-ip-org-ssh-repository" "http://gotti.no-ip.org/maven/repository"]]
+  :jar-name "clojurerepl.jar"
   :aot :all
   )

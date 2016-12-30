@@ -12,16 +12,7 @@
 (defn define-wurm-namespace []
   (eval '(do
            (import '[com.wurmonline.client WurmClientBase])
-           (let [clientObjectField (doto (.getDeclaredField WurmClientBase "clientObject")
-                                     (.setAccessible true))
-                 clientObject (.get clientObjectField nil)
-                 worldField (doto (.getDeclaredField WurmClientBase "world")
-                              (.setAccessible true))]
-             (intern 'wurm 'client clientObject)
-             (intern 'wurm 'world (.get worldField clientObject))
-             (wurm/define-helpers)
-             )))
-  )
+           (wurm/init-ns WurmClientBase))))
 
 (defn -init [this]
   (def server (start-server :port 7888))
