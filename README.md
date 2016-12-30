@@ -46,3 +46,9 @@ your player's current position with:
     > (-> wurm/player .getPos .getX)
 
 There are also `wurm/world` and `wurm/client` defined.
+
+## Intended Usage
+
+Get yourself some VIM with fireplace or EMACS with cider, connect to this nREPL session
+and start coding your life in Wurm :)
+
