@@ -25,18 +25,16 @@ For instructions visit: http://forum.wurmonline.com/index.php?/topic/134945-rele
 
 To build this mod simply run
 
-    lein jar
+    boot dist
 
-Then copy `target/clojurerepl.jar` to `WurmLauncher/mods/clojurerepl/` directory in your
-Wurm Unlimited installation directory.
-
-Finally copy `clojurerepl.properties` to `WurmLauncher/mods/` directory.
+This will compile the mod and create `target/clojurerepl.zip` file. To install simply 
+unzip the file in `[...]/WurmLauncher/mods` directory.
 
 ## Simple Usage
 
-You've just built this mod so you have leiningen installed. Just run:
+You can connect to the remote repl using boot:
 
-    lein repl :connect 7888
+    boot repl -c -p 7888
 
 This will connect to nREPL server inside running WU game.
 
