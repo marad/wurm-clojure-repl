@@ -9,11 +9,6 @@
     :implements [org.gotti.wurmunlimited.modloader.interfaces.WurmClientMod
                  org.gotti.wurmunlimited.modloader.interfaces.Initable]))
 
-(defn define-wurm-namespace []
-  (eval '(do
-           (import '[com.wurmonline.client WurmClientBase])
-           (wurm/init-ns WurmClientBase))))
-
 (defn -init [this]
   (let [server (start-server :port 7888)]
 
@@ -25,7 +20,9 @@
                      (invoke [this proxy method args]
                        (.invoke method proxy args)
                        (println ">>>> Defining usefull stuff")
-                       (define-wurm-namespace)
+                       (eval '(do
+                                (import '[com.wurmonline.client WurmClientBase])
+                                (wurm/init-ns WurmClientBase)))
                        nil)))
 
     (.registerHook (HookManager/getInstance)
@@ -36,5 +33,16 @@
                      (invoke [this proxy method args]
                        (stop-server server)
                        (.invoke method proxy args)
-                       nil)))))
+                       nil)))
+
+    (.registerHook (HookManager/getInstance)
+                 "com.wurmonline.client.renderer.gui.HeadsUpDisplay"
+                 "setAction"
+                 "(Ljava/lang/String;F)V"
+                 (reify java.lang.reflect.InvocationHandler
+                   (invoke [this proxy method args]
+                     (.invoke method proxy args)
+                     (wurm/update-action (first args) (second args))
+                     )))
+    ))
 
